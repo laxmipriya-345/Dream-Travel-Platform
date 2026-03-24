@@ -1,0 +1,323 @@
+/* ===== DREAM TRAVEL PLANNER - PROFESSIONAL STYLES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #f7b731;
+    --primary-dark: #e5a520;
+    --secondary: #2c3e50;
+    --accent: #3498db;
+    --dark: #1e2b37;
+    --light: #f8f9fa;
+    --success: #27ae60;
+    --shadow-sm: 0 5px 15px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.15);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: rgba(10, 30, 45, 0.98) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    padding: 15px 0;
+    transition: var(--transition);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand i {
+    font-size: 2.2rem;
+    color: var(--primary);
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.85) !important;
+    font-weight: 500;
+    margin: 0 5px;
+    padding: 8px 16px !important;
+    border-radius: 50px;
+    transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #fff !important;
+    background: rgba(247, 183, 49, 0.2);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    position: relative;
+    height: 90vh;
+    background: linear-gradient(135deg, rgba(0,20,35,0.7), rgba(0,40,60,0.7)), url('../images/Amsterdam.jpg') center/cover fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+    animation: fadeUp 1s ease;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    animation: fadeUp 1s ease 0.2s both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background: var(--primary);
+    border: none;
+    color: var(--dark);
+    font-weight: 600;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    box-shadow: 0 8px 20px rgba(247, 183, 49, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(247, 183, 49, 0.4);
+    color: var(--dark);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-outline:hover {
+    background: white;
+    color: var(--dark);
+}
+
+/* ===== CARDS ===== */
+.card {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: white;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 1.8rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.card-text {
+    color: #5a6b7a;
+    margin-bottom: 15px;
+}
+
+/* ===== SECTION TITLES ===== */
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--dark);
+    text-align: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+/* ===== GALLERY ===== */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: var(--transition);
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+/* ===== FORMS ===== */
+.form-control, .form-select {
+    border-radius: 15px;
+    padding: 12px 20px;
+    border: 2px solid #e9ecef;
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(247, 183, 49, 0.25);
+}
+
+/* ===== BUDGET CARD ===== */
+.budget-card {
+    background: white;
+    border-radius: 30px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* ===== REVIEWS ===== */
+.review-card {
+    background: white;
+    border-radius: 25px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
+    border-left: 5px solid var(--primary);
+}
+
+.reviewer-name {
+    font-weight: 700;
+    color: var(--dark);
+    margin-top: 15px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #0b202b;
+    color: #ccddee;
+    padding: 40px 0;
+    margin-top: 70px;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+}

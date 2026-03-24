@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Travel Planner - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-compass"></i> DreamTravel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="destinations.html">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="planner.html">Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="budget.html">Budget</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tips.html">Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown" id="userMenu"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Plan Your Dream Destination!!</h1>
+            <p>Continue planning your dream vacation</p>
+            <div>
+                <a href="destinations.html" class="btn btn-primary me-3">Explore Destinations</a>
+                <a href="planner.html" class="btn btn-outline">Start Planning</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <div class="container py-5">
+        <h2 class="section-title">Popular Destinations</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card" onclick="window.location.href='destination-details.html?city=paris'">
+                    <img src="images/paris.jpg" class="card-img-top" alt="Paris">
+                    <div class="card-body">
+                        <h5 class="card-title">Paris, France</h5>
+                        <p class="card-text">The city of love, art, and exquisite cuisine awaits you.</p>
+                        <span class="btn btn-primary">Explore →</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" onclick="window.location.href='destination-details.html?city=bali'">
+                    <img src="images/Bali.jpg" class="card-img-top" alt="Bali">
+                    <div class="card-body">
+                        <h5 class="card-title">Bali, Indonesia</h5>
+                        <p class="card-text">Tropical paradise with stunning beaches and rich culture.</p>
+                        <span class="btn btn-primary">Explore →</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" onclick="window.location.href='destination-details.html?city=india'">
+                    <img src="images/India.jpg" class="card-img-top" alt="Agra, India">
+                    <div class="card-body">
+                        <h5 class="card-title">Agra, India</h5>
+                        <p class="card-text">Home to the magnificent Taj Mahal, one of the Seven Wonders.</p>
+                        <span class="btn btn-primary">Explore →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <i class="bi bi-map fs-1 text-primary"></i>
+                <h4 class="mt-3">Smart Planning</h4>
+                <p>Create detailed itineraries with our intuitive planner</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-calculator fs-1 text-primary"></i>
+                <h4 class="mt-3">Budget Tracker</h4>
+                <p>Keep your travel expenses under control</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-camera fs-1 text-primary"></i>
+                <h4 class="mt-3">Travel Tips</h4>
+                <p>Expert advice for unforgettable journeys</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">© 2026 Dream Travel Planner. All rights reserved.</p>
+            <p class="mb-0 mt-2">
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Auth Check and User Menu Script -->
+    <script>
+        (function() {
+            // Check if user is logged in
+            const user = localStorage.getItem('dreamTravelUser');
+            const currentPage = window.location.pathname.split('/').pop();
+            
+            // Pages that don't require authentication
+            const publicPages = ['login.html', 'signup.html'];
+            
+            // If not logged in and not on public page, redirect to login
+            if (!user && !publicPages.includes(currentPage)) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            if (user) {
+                const userData = JSON.parse(user);
+                
+                // Update welcome message
+                const userNameSpan = document.getElementById('userName');
+                if (userNameSpan) {
+                    userNameSpan.textContent = userData.name || userData.email.split('@')[0];
+                }
+                
+                // Update user menu with Profile link
+                const userMenu = document.getElementById('userMenu');
+                if (userMenu) {
+                    userMenu.innerHTML = `
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> ${userData.name || userData.email.split('@')[0]}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="planner.html"><i class="bi bi-suitcase me-2"></i>My Trips</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    `;
+                }
+            }
+        })();
+        
+        function logout() {
+            localStorage.removeItem('dreamTravelUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

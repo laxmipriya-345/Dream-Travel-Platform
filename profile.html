@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Dream Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            padding: 40px;
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+        
+        .profile-avatar i {
+            font-size: 4rem;
+            color: #667eea;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            text-align: center;
+        }
+        
+        .stat-box h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-box p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+        
+        .info-item {
+            margin-bottom: 20px;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .edit-btn {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .save-btn {
+            background: #667eea;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cancel-btn {
+            background: transparent;
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .cancel-btn:hover {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .edit-mode {
+            display: none;
+        }
+        
+        .view-mode {
+            display: block;
+        }
+        
+        .recent-activity {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #667eea;
+        }
+        
+        .activity-details {
+            flex: 1;
+        }
+        
+        .activity-details h6 {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .activity-details p {
+            margin-bottom: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .activity-time {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+        
+        .alert {
+            border-radius: 15px;
+            padding: 15px 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-compass"></i> DreamTravel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="destinations.html">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="planner.html">Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="budget.html">Budget</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tips.html">Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown" id="userMenu"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- Success/Error Alerts -->
+        <div class="alert alert-success" id="successAlert" style="display: none;">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span id="successMessage">Profile updated successfully!</span>
+        </div>
+        
+        <div class="alert alert-danger" id="errorAlert" style="display: none;">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <span id="errorMessage">An error occurred. Please try again.</span>
+        </div>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center">
+                        <div class="profile-avatar">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="ms-4">
+                            <h1 class="display-5 fw-bold" id="displayName">Loading...</h1>
+                            <p class="lead mb-2" id="displayEmail">Loading...</p>
+                            <p class="mb-0">
+                                <i class="bi bi-calendar3 me-2"></i>
+                                Member since <span id="memberSince">2026</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="edit-btn" id="editProfileBtn" onclick="enableEditMode()">
+                        <i class="bi bi-pencil me-2"></i>Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Stats -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="info-card">
+                    <h5 class="info-title">Travel Statistics</h5>
+                    <div class="profile-stats">
+                        <div class="stat-box">
+                            <h3 id="totalTrips">0</h3>
+                            <p>Trips Planned</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3 id="totalDays">0</h3>
+                            <p>Days Traveling</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3 id="totalCountries">0</h3>
+                            <p>Countries</p>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h6 class="mb-3"><i class="bi bi-clock-history me-2"></i>Recent Activity</h6>
+                        <div id="recentActivities">
+                            <!-- Activities will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <!-- View Mode -->
+                <div class="info-card view-mode" id="viewMode">
+                    <h5 class="info-title">Personal Information</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <div class="info-label">Full Name</div>
+                                <div class="info-value" id="viewFullName">Loading...</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <div class="info-label">Email Address</div>
+                                <div class="info-value" id="viewEmail">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <div class="info-label">Member Since</div>
+                                <div class="info-value" id="viewMemberSince">Loading...</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <div class="info-label">Last Login</div>
+                                <div class="info-value" id="viewLastLogin">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <h5 class="info-title">Preferences</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <div class="info-label">Preferred Currency</div>
+                                <div class="info-value" id="viewCurrency">USD ($)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <div class="info-label">Preferred Language</div>
+                                <div class="info-value" id="viewLanguage">English</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="info-item">
+                                <div class="info-label">Email Notifications</div>
+                                <div class="info-value" id="viewNotifications">Enabled</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Edit Mode -->
+                <div class="info-card edit-mode" id="editMode">
+                    <h5 class="info-title">Edit Profile</h5>
+                    
+                    <form id="profileForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Full Name</label>
+                                <input type="text" class="form-control" id="editFullName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Email</label>
+                                <input type="email" class="form-control" id="editEmail" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Preferred Currency</label>
+                                <select class="form-select" id="editCurrency">
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="JPY">JPY (¥)</option>
+                                    <option value="INR">INR (₹)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Preferred Language</label>
+                                <select class="form-select" id="editLanguage">
+                                    <option value="English">English</option>
+                                    <option value="Spanish">Spanish</option>
+                                    <option value="French">French</option>
+                                    <option value="German">German</option>
+                                    <option value="Japanese">Japanese</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="editNotifications" checked>
+                                <label class="form-check-label" for="editNotifications">
+                                    Receive email notifications about travel deals and updates
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <h5 class="info-title">Change Password</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label fw-bold">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">New Password</label>
+                                <input type="password" class="form-control" id="newPassword">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button type="button" class="save-btn" onclick="saveProfile()">
+                                <i class="bi bi-check-circle me-2"></i>Save Changes
+                            </button>
+                            <button type="button" class="cancel-btn" onclick="cancelEdit()">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">© 2026 Dream Travel Planner. All rights reserved.</p>
+            <p class="mb-0 mt-2">
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // User data
+        let currentUser = null;
+        let userPreferences = null;
+        
+        // Load user data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadTripStatistics();
+            loadRecentActivities();
+            updateUserMenu();
+        });
+        
+        function loadUserData() {
+            const user = localStorage.getItem('dreamTravelUser');
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            currentUser = JSON.parse(user);
+            
+            // Load preferences from localStorage
+            const prefs = localStorage.getItem('userPreferences');
+            if (prefs) {
+                userPreferences = JSON.parse(prefs);
+            } else {
+                userPreferences = {
+                    currency: 'USD',
+                    language: 'English',
+                    notifications: true
+                };
+            }
+            
+            // Update display
+            document.getElementById('displayName').textContent = currentUser.name || currentUser.email.split('@')[0];
+            document.getElementById('displayEmail').textContent = currentUser.email;
+            document.getElementById('viewFullName').textContent = currentUser.name || currentUser.email.split('@')[0];
+            document.getElementById('viewEmail').textContent = currentUser.email;
+            
+            const joinDate = currentUser.created ? new Date(currentUser.created).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : 'January 2026';
+            document.getElementById('memberSince').textContent = joinDate;
+            document.getElementById('viewMemberSince').textContent = joinDate;
+            
+            const lastLogin = currentUser.loginTime ? new Date(currentUser.loginTime).toLocaleString() : 'Today';
+            document.getElementById('viewLastLogin').textContent = lastLogin;
+            
+            // Fill edit form
+            document.getElementById('editFullName').value = currentUser.name || '';
+            document.getElementById('editEmail').value = currentUser.email;
+            document.getElementById('editCurrency').value = userPreferences.currency || 'USD';
+            document.getElementById('editLanguage').value = userPreferences.language || 'English';
+            document.getElementById('editNotifications').checked = userPreferences.notifications !== false;
+            
+            // Update preferences display
+            document.getElementById('viewCurrency').textContent = getCurrencySymbol(userPreferences.currency || 'USD');
+            document.getElementById('viewLanguage').textContent = userPreferences.language || 'English';
+            document.getElementById('viewNotifications').textContent = userPreferences.notifications !== false ? 'Enabled' : 'Disabled';
+        }
+        
+        function loadTripStatistics() {
+            const trips = JSON.parse(localStorage.getItem('dreamTravelTrips') || '[]');
+            
+            document.getElementById('totalTrips').textContent = trips.length;
+            
+            const totalDays = trips.reduce((sum, trip) => sum + (trip.days || 0), 0);
+            document.getElementById('totalDays').textContent = totalDays;
+            
+            const countries = new Set();
+            trips.forEach(trip => {
+                const dest = trip.destination || '';
+                const parts = dest.split(',');
+                const country = parts.length > 1 ? parts[1].trim() : parts[0].trim();
+                countries.add(country);
+            });
+            document.getElementById('totalCountries').textContent = countries.size;
+        }
+        
+        function loadRecentActivities() {
+            const container = document.getElementById('recentActivities');
+            const trips = JSON.parse(localStorage.getItem('dreamTravelTrips') || '[]');
+            
+            if (trips.length === 0) {
+                container.innerHTML = '<p class="text-muted">No recent activity</p>';
+                return;
+            }
+            
+            // Get last 3 trips
+            const recent = trips.slice(-3).reverse();
+            
+            container.innerHTML = recent.map(trip => `
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="bi bi-suitcase"></i>
+                    </div>
+                    <div class="activity-details">
+                        <h6>Added ${trip.destination}</h6>
+                        <p>${trip.days} days trip starting ${new Date(trip.startDate).toLocaleDateString()}</p>
+                    </div>
+                    <div class="activity-time">
+                        ${timeAgo(trip.dateAdded)}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function timeAgo(timestamp) {
+            if (!timestamp) return 'recently';
+            
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            
+            if (seconds < 60) return 'just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+            return `${Math.floor(seconds / 86400)} days ago`;
+        }
+        
+        function getCurrencySymbol(currency) {
+            const symbols = {
+                'USD': 'USD ($)',
+                'EUR': 'EUR (€)',
+                'GBP': 'GBP (£)',
+                'JPY': 'JPY (¥)',
+                'INR': 'INR (₹)'
+            };
+            return symbols[currency] || 'USD ($)';
+        }
+        
+        function enableEditMode() {
+            document.getElementById('viewMode').style.display = 'none';
+            document.getElementById('editMode').style.display = 'block';
+            document.getElementById('editProfileBtn').style.display = 'none';
+        }
+        
+        function cancelEdit() {
+            document.getElementById('viewMode').style.display = 'block';
+            document.getElementById('editMode').style.display = 'none';
+            document.getElementById('editProfileBtn').style.display = 'inline-block';
+            
+            // Reset form to original values
+            document.getElementById('editFullName').value = currentUser.name || '';
+            document.getElementById('editEmail').value = currentUser.email;
+        }
+        
+        function saveProfile() {
+            const newName = document.getElementById('editFullName').value.trim();
+            const newEmail = document.getElementById('editEmail').value.trim();
+            const currency = document.getElementById('editCurrency').value;
+            const language = document.getElementById('editLanguage').value;
+            const notifications = document.getElementById('editNotifications').checked;
+            
+            const currentPass = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+            
+            // Validate email
+            if (!isValidEmail(newEmail)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+            
+            // Update user data
+            currentUser.name = newName;
+            currentUser.email = newEmail;
+            
+            // Update preferences
+            userPreferences.currency = currency;
+            userPreferences.language = language;
+            userPreferences.notifications = notifications;
+            
+            // Handle password change if provided
+            if (currentPass || newPass || confirmPass) {
+                if (!currentPass || !newPass || !confirmPass) {
+                    showError('Please fill all password fields');
+                    return;
+                }
+                
+                if (newPass !== confirmPass) {
+                    showError('New passwords do not match');
+                    return;
+                }
+                
+                if (newPass.length < 6) {
+                    showError('Password must be at least 6 characters');
+                    return;
+                }
+                
+                // In a real app, you'd verify current password here
+                currentUser.password = newPass; // Store in real app only
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('dreamTravelUser', JSON.stringify(currentUser));
+            localStorage.setItem('userPreferences', JSON.stringify(userPreferences));
+            
+            // Clear password fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            
+            // Show success message
+            showSuccess('Profile updated successfully!');
+            
+            // Exit edit mode
+            cancelEdit();
+            
+            // Reload user data
+            loadUserData();
+        }
+        
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function showSuccess(message) {
+            const alert = document.getElementById('successAlert');
+            document.getElementById('successMessage').textContent = message;
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+        
+        function showError(message) {
+            const alert = document.getElementById('errorAlert');
+            document.getElementById('errorMessage').textContent = message;
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+        
+        function updateUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            if (userMenu && currentUser) {
+                userMenu.innerHTML = `
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> ${currentUser.name || currentUser.email.split('@')[0]}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item active" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="planner.html"><i class="bi bi-suitcase me-2"></i>My Trips</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    </ul>
+                `;
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('dreamTravelUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

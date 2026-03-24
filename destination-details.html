@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details - Dream Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .rating-stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .attraction-list {
+            list-style: none;
+            padding: 0;
+        }
+        .attraction-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+        }
+        .attraction-list li:last-child {
+            border-bottom: none;
+        }
+        .attraction-list li i {
+            margin-right: 10px;
+            color: #f7b731;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-compass"></i> DreamTravel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="destinations.html">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="planner.html">Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="budget.html">Budget</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tips.html">Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown" id="userMenu"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div id="destinationContent">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">© 2026 Dream Travel Planner. All rights reserved.</p>
+            <p class="mb-0 mt-2">
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Destination data
+        const destinations = {
+            paris: {
+                name: "Paris, France",
+                image: "images/paris.jpg",
+                country: "🇫🇷 France",
+                continent: "Europe",
+                rating: 4.8,
+                reviews: 245,
+                description: "Paris, the City of Light, captivates visitors with its timeless elegance, world-class art, and romantic ambiance. From the iconic Eiffel Tower to charming cafés along the Seine, every corner tells a story.",
+                attractions: [
+                    "🗼 Eiffel Tower - The iconic symbol of Paris",
+                    "🎨 Louvre Museum - Home of the Mona Lisa",
+                    "⛪ Notre-Dame Cathedral - Gothic masterpiece",
+                    "🛍️ Champs-Élysées - World-famous avenue",
+                    "🎭 Moulin Rouge - Historic cabaret"
+                ],
+                bestTime: "April to June and September to November offer pleasant weather and fewer crowds.",
+                currency: "Euro (€)",
+                language: "French",
+                timezone: "CET (UTC+1)",
+                budget: {
+                    budget: 80,
+                    mid: 150,
+                    luxury: 300
+                }
+            },
+            bali: {
+                name: "Bali, Indonesia",
+                image: "images/Bali.jpg",
+                country: "🇮🇩 Indonesia",
+                continent: "Asia",
+                rating: 4.9,
+                reviews: 312,
+                description: "Bali is a tropical paradise known for its stunning beaches, ancient temples, lush rice terraces, and vibrant spiritual culture. Experience the perfect blend of relaxation and adventure.",
+                attractions: [
+                    "🏝️ Kuta Beach - World-famous surfing spot",
+                    "🛕 Uluwatu Temple - Cliff-top sea temple",
+                    "🌾 Tegalalang Rice Terraces - Stunning landscapes",
+                    "🙏 Ubud - Cultural and spiritual heart",
+                    "🌋 Mount Batur - Active volcano sunrise trek"
+                ],
+                bestTime: "April to October (dry season) is ideal for outdoor activities.",
+                currency: "Indonesian Rupiah (IDR)",
+                language: "Indonesian, Balinese",
+                timezone: "WITA (UTC+8)",
+                budget: {
+                    budget: 40,
+                    mid: 80,
+                    luxury: 200
+                }
+            },
+            switzerland: {
+                name: "Swiss Alps",
+                image: "images/Switzerland.jpg",
+                country: "🇨🇭 Switzerland",
+                continent: "Europe",
+                rating: 4.9,
+                reviews: 198,
+                description: "The Swiss Alps offer breathtaking mountain scenery, world-class skiing, picturesque hiking trails, and charming alpine villages. A paradise for nature lovers and adventure seekers.",
+                attractions: [
+                    "🏔️ Matterhorn - Iconic alpine peak",
+                    "🚂 Jungfraujoch - Top of Europe railway",
+                    "🏞️ Lake Geneva - Pristine mountain lake",
+                    "⛷️ Zermatt - Premier ski resort",
+                    "🌲 Interlaken - Adventure sports capital"
+                ],
+                bestTime: "December-March for skiing, June-September for hiking.",
+                currency: "Swiss Franc (CHF)",
+                language: "German, French, Italian",
+                timezone: "CET (UTC+1)",
+                budget: {
+                    budget: 100,
+                    mid: 200,
+                    luxury: 400
+                }
+            },
+            japan: {
+                name: "Tokyo, Japan",
+                image: "images/Japan.jpg",
+                country: "🇯🇵 Japan",
+                continent: "Asia",
+                rating: 4.7,
+                reviews: 178,
+                description: "Tokyo is a fascinating blend of ultramodern and traditional, from neon-lit skyscrapers and anime culture to historic temples and serene gardens.",
+                attractions: [
+                    "🗼 Tokyo Tower - City landmark",
+                    "⛩️ Senso-ji Temple - Ancient Buddhist temple",
+                    "🍣 Tsukiji Market - World's largest fish market",
+                    "🎌 Shibuya Crossing - Busiest intersection",
+                    "🌸 Shinjuku Gyoen - Beautiful gardens"
+                ],
+                bestTime: "March-May for cherry blossoms, September-November for autumn colors.",
+                currency: "Japanese Yen (¥)",
+                language: "Japanese",
+                timezone: "JST (UTC+9)",
+                budget: {
+                    budget: 70,
+                    mid: 150,
+                    luxury: 350
+                }
+            },
+            india: {
+                name: "Agra, India",
+                image: "images/India.jpg",
+                country: "🇮🇳 India",
+                continent: "Asia",
+                rating: 4.9,
+                reviews: 256,
+                description: "Agra is home to the magnificent Taj Mahal, one of the Seven Wonders of the World. This city on the banks of the Yamuna River is a treasure trove of Mughal architecture, rich history, and timeless romance.",
+                attractions: [
+                    "🏛️ Taj Mahal - Iconic symbol of love",
+                    "🏰 Agra Fort - Majestic red sandstone fortress",
+                    "🕌 Fatehpur Sikri - Ancient Mughal city",
+                    "🍛 Local Cuisine - Famous Mughlai dishes",
+                    "🛍️ Marble Inlay Work - Traditional craftsmanship"
+                ],
+                bestTime: "October to March when weather is pleasant and perfect for sightseeing.",
+                currency: "Indian Rupee (₹)",
+                language: "Hindi, English",
+                timezone: "IST (UTC+5:30)",
+                budget: {
+                    budget: 30,
+                    mid: 70,
+                    luxury: 150
+                }
+            },
+            amsterdam: {
+                name: "Amsterdam, Netherlands",
+                image: "images/Amsterdam.jpg",
+                country: "🇳🇱 Netherlands",
+                continent: "Europe",
+                rating: 4.7,
+                reviews: 167,
+                description: "Amsterdam enchants with its picturesque canals, historic architecture, world-class museums, and vibrant cycling culture. A city of art, history, and liberal charm.",
+                attractions: [
+                    "🚤 Canal Cruise - Explore by boat",
+                    "🎨 Rijksmuseum - Dutch masters",
+                    "🏠 Anne Frank House - Historic hiding place",
+                    "🌷 Keukenhof - Tulip gardens",
+                    "🚲 Vondelpark - City's green heart"
+                ],
+                bestTime: "April-August for tulips and warm weather.",
+                currency: "Euro (€)",
+                language: "Dutch",
+                timezone: "CET (UTC+1)",
+                budget: {
+                    budget: 70,
+                    mid: 140,
+                    luxury: 280
+                }
+            },
+            korea: {
+                name: "Seoul, South Korea",
+                image: "images/SouthKorea.jpg",
+                country: "🇰🇷 South Korea",
+                continent: "Asia",
+                rating: 4.8,
+                reviews: 145,
+                description: "Seoul is a dynamic metropolis where ancient palaces meet futuristic technology, K-culture, and incredible food. A city that never sleeps.",
+                attractions: [
+                    "🏯 Gyeongbokgung - Royal palace",
+                    "📱 Myeongdong - Shopping paradise",
+                    "🍜 Hongdae - Youth culture hub",
+                    "🌃 N Seoul Tower - City views",
+                    "🏞️ Bukchon - Traditional village"
+                ],
+                bestTime: "March-May and September-November for mild weather.",
+                currency: "South Korean Won (₩)",
+                language: "Korean",
+                timezone: "KST (UTC+9)",
+                budget: {
+                    budget: 60,
+                    mid: 120,
+                    luxury: 250
+                }
+            },
+            china: {
+                name: "Great Wall, China",
+                image: "images/China.jpg",
+                country: "🇨🇳 China",
+                continent: "Asia",
+                rating: 4.9,
+                reviews: 203,
+                description: "The Great Wall of China, one of the Seven Wonders of the World, stretches across mountains and valleys, offering breathtaking views and a glimpse into ancient history.",
+                attractions: [
+                    "🧱 Mutianyu - Best preserved section",
+                    "🏔️ Jinshanling - Great hiking",
+                    "📸 Badaling - Most famous section",
+                    "🌲 Simatai - Night tours available",
+                    "🏛️ Ming Tombs - Nearby attraction"
+                ],
+                bestTime: "April-June and September-October for comfortable weather.",
+                currency: "Chinese Yuan (¥)",
+                language: "Mandarin",
+                timezone: "CST (UTC+8)",
+                budget: {
+                    budget: 50,
+                    mid: 100,
+                    luxury: 200
+                }
+            }
+        };
+
+        // Load destination on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const city = urlParams.get('city') || 'paris';
+            
+            const dest = destinations[city] || destinations.paris;
+            document.title = `${dest.name} - Dream Travel`;
+            
+            const container = document.getElementById('destinationContent');
+            container.innerHTML = `
+                <div class="row">
+                    <div class="col-lg-8">
+                        <img src="${dest.image}" class="img-fluid rounded-4 mb-4" alt="${dest.name}">
+                        
+                        <h2 class="mb-3">${dest.name}</h2>
+                        <div class="d-flex gap-3 mb-4">
+                            <span class="badge bg-primary">${dest.country} ${dest.continent}</span>
+                            <span class="badge bg-secondary">
+                                <i class="bi bi-star-fill text-warning me-1"></i>${dest.rating} (${dest.reviews} reviews)
+                            </span>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5 class="mb-3">About</h5>
+                            <p class="mb-0">${dest.description}</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5 class="mb-3">Top Attractions</h5>
+                            <ul class="attraction-list">
+                                ${dest.attractions.map(attraction => `
+                                    <li><i class="bi bi-geo-alt-fill"></i>${attraction}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5 class="mb-3">Best Time to Visit</h5>
+                            <p class="mb-0"><i class="bi bi-calendar-check me-2"></i>${dest.bestTime}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="budget-card">
+                            <h5 class="mb-3">Quick Info</h5>
+                            <div class="mb-3">
+                                <strong><i class="bi bi-currency-exchange me-2"></i>Currency:</strong> ${dest.currency}
+                            </div>
+                            <div class="mb-3">
+                                <strong><i class="bi bi-chat me-2"></i>Language:</strong> ${dest.language}
+                            </div>
+                            <div class="mb-3">
+                                <strong><i class="bi bi-clock me-2"></i>Time Zone:</strong> ${dest.timezone}
+                            </div>
+                            <hr>
+                            <h6 class="mb-3">Estimated Daily Budget</h6>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Budget</span>
+                                    <span>$${dest.budget.budget}</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" style="width: ${(dest.budget.budget/dest.budget.luxury)*100}%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Mid-range</span>
+                                    <span>$${dest.budget.mid}</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-primary" style="width: ${(dest.budget.mid/dest.budget.luxury)*100}%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Luxury</span>
+                                    <span>$${dest.budget.luxury}</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-warning" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <a href="planner.html" class="btn btn-primary w-100">Plan a Trip to ${dest.name.split(',')[0]}</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+    
+    <!-- Auth Check and User Menu Script -->
+    <script>
+        (function() {
+            const user = localStorage.getItem('dreamTravelUser');
+            const currentPage = window.location.pathname.split('/').pop();
+            const publicPages = ['login.html', 'signup.html'];
+            
+            if (!user && !publicPages.includes(currentPage)) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            if (user) {
+                const userData = JSON.parse(user);
+                const userMenu = document.getElementById('userMenu');
+                if (userMenu) {
+                    userMenu.innerHTML = `
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> ${userData.name || userData.email.split('@')[0]}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="planner.html"><i class="bi bi-suitcase me-2"></i>My Trips</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    `;
+                }
+            }
+        })();
+        
+        function logout() {
+            localStorage.removeItem('dreamTravelUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

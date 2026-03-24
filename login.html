@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Dream Travel Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 300px;
+        }
+        
+        .login-left h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .login-left p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .login-left .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .login-left .feature i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 50%;
+        }
+        
+        .login-right {
+            flex: 1;
+            padding: 60px 40px;
+            background: white;
+            min-width: 300px;
+        }
+        
+        .login-right h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .login-right .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-floating {
+            margin-bottom: 20px;
+        }
+        
+        .form-floating input {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 1rem 0.75rem;
+            height: auto;
+        }
+        
+        .form-floating input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .form-floating label {
+            padding: 1rem 0.75rem;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .demo-credentials {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .demo-credentials p {
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .demo-credentials code {
+            background: #e9ecef;
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Left Side - Branding -->
+            <div class="login-left">
+                <i class="bi bi-compass" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <h1>Dream Travel Planner</h1>
+                <p>Your ultimate travel companion to plan, organize, and track your dream vacations around the world.</p>
+                
+                <div class="feature">
+                    <i class="bi bi-map"></i>
+                    <span>Explore 8+ exotic destinations</span>
+                </div>
+                <div class="feature">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Plan and manage your trips</span>
+                </div>
+                <div class="feature">
+                    <i class="bi bi-calculator"></i>
+                    <span>Track your travel budget</span>
+                </div>
+                <div class="feature">
+                    <i class="bi bi-camera"></i>
+                    <span>Browse stunning galleries</span>
+                </div>
+            </div>
+            
+            <!-- Right Side - Login Form -->
+            <div class="login-right">
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Sign in to continue your travel journey</p>
+                
+                <!-- Alert Message -->
+                <div class="alert alert-danger" id="loginAlert" style="display: none;">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <span id="alertText">Invalid credentials</span>
+                </div>
+                
+                <!-- Demo Credentials -->
+                <div class="demo-credentials">
+                    <p><i class="bi bi-info-circle me-2"></i>Demo Credentials:</p>
+                    <p><code>demo@dreamtravel.com</code></p>
+                    <p><code>password123</code></p>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" value="demo@dreamtravel.com" required>
+                        <label><i class="bi bi-envelope me-2"></i>Email address</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Password" value="password123" required>
+                        <label><i class="bi bi-key me-2"></i>Password</label>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="text-decoration-none" style="color: #667eea;">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                    </button>
+                </form>
+                
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="signup.html">Create Account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo credentials
+        const DEMO_EMAIL = "demo@dreamtravel.com";
+        const DEMO_PASSWORD = "password123";
+        
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = localStorage.getItem('dreamTravelUser');
+            if (user) {
+                window.location.href = 'index.html';
+            }
+        });
+        
+        // Handle login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const alertBox = document.getElementById('loginAlert');
+            const alertText = document.getElementById('alertText');
+            
+            // Validate
+            if (!email || !password) {
+                alertText.textContent = 'Please fill in all fields';
+                alertBox.style.display = 'block';
+                alertBox.className = 'alert alert-warning';
+                return;
+            }
+            
+            // Check credentials (demo)
+            if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+                // Success
+                const userData = {
+                    email: email,
+                    name: 'Demo User',
+                    loggedIn: true,
+                    loginTime: new Date().toISOString()
+                };
+                
+                localStorage.setItem('dreamTravelUser', JSON.stringify(userData));
+                
+                // Show success
+                alertText.textContent = 'Login successful! Redirecting...';
+                alertBox.style.display = 'block';
+                alertBox.className = 'alert alert-success';
+                
+                // Redirect to home
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } else {
+                // Failed
+                alertText.textContent = 'Invalid email or password. Use demo@dreamtravel.com / password123';
+                alertBox.style.display = 'block';
+                alertBox.className = 'alert alert-danger';
+            }
+        });
+    </script>
+</body>
+</html>

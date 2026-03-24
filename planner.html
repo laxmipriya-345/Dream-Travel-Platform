@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner - Dream Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .trip-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #f7b731;
+            transition: transform 0.2s ease;
+        }
+        
+        .trip-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .trip-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .trip-days {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #dee2e6;
+        }
+        
+        .delete-trip {
+            color: #dc3545;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+            padding: 5px;
+        }
+        
+        .delete-trip:hover {
+            opacity: 1;
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-compass"></i> DreamTravel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="destinations.html">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="planner.html">Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="budget.html">Budget</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tips.html">Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown" id="userMenu"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <h2 class="section-title">Plan Your Journey</h2>
+        
+        <!-- Trip Statistics -->
+        <div class="stats-card">
+            <div class="row">
+                <div class="col-4">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalTrips">0</div>
+                        <div class="stat-label">Total Trips</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalDays">0</div>
+                        <div class="stat-label">Total Days</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-item">
+                        <div class="stat-number" id="uniqueCountries">0</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Add Trip Form -->
+            <div class="col-lg-5 mb-4">
+                <div class="budget-card">
+                    <h4 class="mb-4">
+                        <i class="bi bi-pencil-square me-2 text-primary"></i>
+                        Add New Trip
+                    </h4>
+                    
+                    <form id="tripForm">
+                        <div class="mb-3">
+                            <label for="tripDestination" class="form-label fw-bold">Destination</label>
+                            <input type="text" class="form-control" id="tripDestination" placeholder="e.g., Paris, France" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="tripStartDate" class="form-label fw-bold">Start Date</label>
+                            <input type="date" class="form-control" id="tripStartDate" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="tripDays" class="form-label fw-bold">Number of Days</label>
+                            <input type="number" class="form-control" id="tripDays" placeholder="7" min="1" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 py-3">
+                            <i class="bi bi-plus-circle me-2"></i>Add to My Trips
+                        </button>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Quick Destination Suggestions -->
+                    <h6 class="fw-bold mb-3">Popular Destinations:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-sm btn-outline-primary quick-dest" data-dest="Paris, France">🇫🇷 Paris</button>
+                        <button class="btn btn-sm btn-outline-primary quick-dest" data-dest="Bali, Indonesia">🇮🇩 Bali</button>
+                        <button class="btn btn-sm btn-outline-primary quick-dest" data-dest="Tokyo, Japan">🇯🇵 Tokyo</button>
+                        <button class="btn btn-sm btn-outline-primary quick-dest" data-dest="Swiss Alps">🇨🇭 Swiss Alps</button>
+                        <button class="btn btn-sm btn-outline-primary quick-dest" data-dest="Agra, India">🇮🇳 Agra (Taj Mahal)</button>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <button class="btn btn-outline-danger w-100" id="clearAllTrips">
+                            <i class="bi bi-trash me-2"></i>Clear All Trips
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- My Trips List -->
+            <div class="col-lg-7">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0">
+                        <i class="bi bi-suitcase fs-1 me-2 text-primary"></i>
+                        My Trips
+                    </h4>
+                    <span class="badge bg-primary" id="tripCount">0 trips</span>
+                </div>
+                
+                <!-- Sort Options -->
+                <div class="btn-group mb-3" role="group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm active" id="sortNewest">
+                        <i class="bi bi-sort-down"></i> Newest First
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="sortOldest">
+                        <i class="bi bi-sort-up"></i> Oldest First
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="sortDuration">
+                        <i class="bi bi-clock"></i> Duration
+                    </button>
+                </div>
+                
+                <!-- Trips Container -->
+                <div id="tripsContainer">
+                    <!-- Trips will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">© 2026 Dream Travel Planner. All rights reserved.</p>
+            <p class="mb-0 mt-2">
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    
+    <!-- Trip Planner Script -->
+    <script>
+        class TripPlanner {
+            constructor() {
+                this.trips = [];
+                this.sortOrder = 'newest';
+                this.loadFromStorage();
+                this.initEventListeners();
+                this.displayTrips();
+            }
+
+            initEventListeners() {
+                document.getElementById('tripForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addTrip();
+                });
+
+                document.querySelectorAll('.quick-dest').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.getElementById('tripDestination').value = btn.dataset.dest;
+                    });
+                });
+
+                document.getElementById('sortNewest').addEventListener('click', () => {
+                    this.updateSortButtons('sortNewest');
+                    this.sortOrder = 'newest';
+                    this.sortTrips();
+                });
+
+                document.getElementById('sortOldest').addEventListener('click', () => {
+                    this.updateSortButtons('sortOldest');
+                    this.sortOrder = 'oldest';
+                    this.sortTrips();
+                });
+
+                document.getElementById('sortDuration').addEventListener('click', () => {
+                    this.updateSortButtons('sortDuration');
+                    this.sortOrder = 'duration';
+                    this.sortTrips();
+                });
+
+                document.getElementById('clearAllTrips').addEventListener('click', () => {
+                    if (this.trips.length > 0 && confirm('Are you sure you want to delete all your trips?')) {
+                        this.trips = [];
+                        this.saveToStorage();
+                        this.displayTrips();
+                    }
+                });
+            }
+
+            updateSortButtons(activeId) {
+                ['sortNewest', 'sortOldest', 'sortDuration'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) {
+                        if (id === activeId) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    }
+                });
+            }
+
+            addTrip() {
+                const destination = document.getElementById('tripDestination').value.trim();
+                const startDate = document.getElementById('tripStartDate').value;
+                const days = parseInt(document.getElementById('tripDays').value);
+
+                if (!destination) {
+                    alert('Please enter a destination');
+                    return;
+                }
+
+                if (!startDate) {
+                    alert('Please select a start date');
+                    return;
+                }
+
+                if (!days || days <= 0) {
+                    alert('Please enter a valid number of days');
+                    return;
+                }
+
+                const trip = {
+                    id: Date.now(),
+                    destination: destination,
+                    startDate: startDate,
+                    days: days,
+                    timestamp: new Date(startDate).getTime(),
+                    dateAdded: Date.now()
+                };
+
+                this.trips.push(trip);
+                this.saveToStorage();
+                this.displayTrips();
+                
+                document.getElementById('tripForm').reset();
+                alert('Trip added successfully!');
+            }
+
+            deleteTrip(id) {
+                this.trips = this.trips.filter(trip => trip.id !== id);
+                this.saveToStorage();
+                this.displayTrips();
+                alert('Trip removed');
+            }
+
+            sortTrips() {
+                switch(this.sortOrder) {
+                    case 'newest':
+                        this.trips.sort((a, b) => b.timestamp - a.timestamp);
+                        break;
+                    case 'oldest':
+                        this.trips.sort((a, b) => a.timestamp - b.timestamp);
+                        break;
+                    case 'duration':
+                        this.trips.sort((a, b) => b.days - a.days);
+                        break;
+                }
+                this.displayTrips();
+            }
+
+            displayTrips() {
+                const container = document.getElementById('tripsContainer');
+                const tripCount = document.getElementById('tripCount');
+                const totalTrips = document.getElementById('totalTrips');
+                const totalDays = document.getElementById('totalDays');
+                const uniqueCountries = document.getElementById('uniqueCountries');
+
+                tripCount.textContent = `${this.trips.length} ${this.trips.length === 1 ? 'trip' : 'trips'}`;
+                totalTrips.textContent = this.trips.length;
+                
+                const totalDaysValue = this.trips.reduce((sum, trip) => sum + trip.days, 0);
+                totalDays.textContent = totalDaysValue;
+                
+                const countries = new Set();
+                this.trips.forEach(trip => {
+                    const parts = trip.destination.split(',');
+                    const country = parts.length > 1 ? parts[1].trim() : parts[0].trim();
+                    countries.add(country);
+                });
+                uniqueCountries.textContent = countries.size;
+
+                if (this.trips.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="bi bi-suitcase"></i>
+                            <h5>No trips planned yet</h5>
+                            <p class="text-muted">Add your first trip to start planning your adventure!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                this.sortTrips();
+
+                container.innerHTML = this.trips.map(trip => `
+                    <div class="trip-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="mb-2">
+                                    ✈️ ${trip.destination}
+                                </h5>
+                                <div class="d-flex gap-3 mb-2">
+                                    <span class="trip-date">
+                                        <i class="bi bi-calendar3 me-1"></i>${this.formatDate(trip.startDate)}
+                                    </span>
+                                    <span class="trip-days">
+                                        <i class="bi bi-clock me-1"></i>${trip.days} days
+                                    </span>
+                                </div>
+                                <small class="text-muted">
+                                    Added ${this.timeAgo(trip.dateAdded)}
+                                </small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-primary me-2">Trip #${this.trips.indexOf(trip) + 1}</span>
+                                <i class="bi bi-x-circle-fill delete-trip" onclick="tripPlanner.deleteTrip(${trip.id})"></i>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+
+            timeAgo(timestamp) {
+                const seconds = Math.floor((Date.now() - timestamp) / 1000);
+                
+                if (seconds < 60) return 'just now';
+                if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
+                if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+                return `${Math.floor(seconds / 86400)} days ago`;
+            }
+
+            saveToStorage() {
+                localStorage.setItem('dreamTravelTrips', JSON.stringify(this.trips));
+            }
+
+            loadFromStorage() {
+                const saved = localStorage.getItem('dreamTravelTrips');
+                if (saved) {
+                    this.trips = JSON.parse(saved);
+                }
+            }
+        }
+
+        const tripPlanner = new TripPlanner();
+    </script>
+    
+    <!-- Auth Check and User Menu Script -->
+    <script>
+        (function() {
+            const user = localStorage.getItem('dreamTravelUser');
+            const currentPage = window.location.pathname.split('/').pop();
+            const publicPages = ['login.html', 'signup.html'];
+            
+            if (!user && !publicPages.includes(currentPage)) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            if (user) {
+                const userData = JSON.parse(user);
+                const userMenu = document.getElementById('userMenu');
+                if (userMenu) {
+                    userMenu.innerHTML = `
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> ${userData.name || userData.email.split('@')[0]}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="planner.html"><i class="bi bi-suitcase me-2"></i>My Trips</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    `;
+                }
+            }
+        })();
+        
+        function logout() {
+            localStorage.removeItem('dreamTravelUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
