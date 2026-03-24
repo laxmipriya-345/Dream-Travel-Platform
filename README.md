@@ -105,7 +105,7 @@
 <div align="center">
   
 ### 🏠 Home Page
-![Home Page](https://via.placeholder.com/800x400?text=Home+Page+Screenshot)
+![Home Page](images/home.png)
 
 ### 🗺️ Destinations Page
 ![Destinations](https://via.placeholder.com/800x400?text=Destinations+Page)
