@@ -104,17 +104,25 @@
 
 <div align="center">
   
+## 📸 Screenshots
+
 ### 🏠 Home Page
-![Home Page](image/home.png)
+![Home](image/Home.png)
 
-### 🗺️ Destinations Page
-![Destinations](https://via.placeholder.com/800x400?text=Destinations+Page)
+### 📄 Front Page
+![Front](image/Front%20page.png)
 
-### 📅 Trip Planner
-![Planner](https://via.placeholder.com/800x400?text=Trip+Planner)
+### 📅 Planner
+![Planner](image/planner.png)
 
-### 💰 Budget Tracker
-![Budget](https://via.placeholder.com/800x400?text=Budget+Tracker)
+### 💰 Budget
+![Budget](image/budget.png)
+
+### 🌍 Destination
+![Destination](image/destination.png)
+
+### 💡 Tips
+![Tips](image/tips.png)
 
 </div>
 
