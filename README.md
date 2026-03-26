@@ -289,7 +289,7 @@ MIT License © 2026
 
 
 
-Project: https://github.com/DishaAgarwalla/Dream-Travel-Planner
+Project: https://github.com/laxmipriya-345/Dream-Travel-Planner
 
 ## 🙏 Acknowledgments
 
